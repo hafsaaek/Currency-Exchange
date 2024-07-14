@@ -1,7 +1,10 @@
+package old;
+
+// package com.hafsaaek.old;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CurrencyConverter {
+public class oldCurrencyConverter {
     
     public static void main(String[] args) {
         // Define currency codes
