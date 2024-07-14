@@ -1,16 +1,11 @@
 package com.hafsaaek;
 
 import org.json.JSONObject;
-
 import java.text.DecimalFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
-
-// package com.hafsaaek; // why is this erroring?
-// setting the http request method to static beneifit 
-
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -87,8 +82,6 @@ public class CurrencyConverter {
 
         } while (programRunning);
         System.out.println("Thank you for using the Currency COnverter program!"); // when the conversion has completed
-        
-        
     }
 
     public static void sendHTTPGETRequest(String fromCode, String toCode, double amount) {
@@ -135,11 +128,9 @@ public class CurrencyConverter {
             }
 
 
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException ie) {
-            ie.printStackTrace();
         }
 
     }
