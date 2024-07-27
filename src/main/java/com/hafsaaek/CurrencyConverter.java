@@ -1,6 +1,6 @@
 package com.hafsaaek;
 
-import org.json.JSONObject;
+// import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,17 +11,7 @@ import java.util.Scanner;
 
 public class CurrencyConverter {
     private static final DecimalFormat df = new DecimalFormat("0.00");
-
-    private static String API_Key = "";
-
-    public String getAPI_Key() {
-        return API_Key;
-    }
-
-    public void setAPI_Key(String API_Key) {
-        // this.API_Key = API_Key; // this would be OK, if it was an instance variable but API Key is a class variable so it belongs to the class not an instance of the class
-        CurrencyConverter.API_Key = API_Key; // class variable 
-    }
+    
 
     
     @SuppressWarnings("resource")
@@ -86,8 +76,11 @@ public class CurrencyConverter {
 
     public static void sendHTTPGETRequest(String fromCode, String toCode, double amount) {
 
+        // Retrieve the API key from ApiTokenManager
+        String apiKey = ApiTokenManager.getApiKey();
+
         // https://api.currencyapi.com/v3/convert?apikey=YOUR_API_KEY&base_currency=BASE_CURRENCY&target_currency=TARGET_CURRENCY&value=AMOUNT
-        String getURL = "https://api.currencyapi.com/v3/latest?apikey=" + API_Key + "&base_currency=" + fromCode+ "&target_currency=" + toCode +"&value=" + amount;
+        String getURL = "https://api.currencyapi.com/v3/latest?apikey=" + apiKey + "&base_currency=" + fromCode+ "&target_currency=" + toCode +"&value=" + amount;
         // Test for selecing USD --> GBP
         System.out.println(getURL); // https://api.currencyapi.com/v3/latest?apikey=&base_currency=USD&target_currency=GBP&amount=20.0
 
