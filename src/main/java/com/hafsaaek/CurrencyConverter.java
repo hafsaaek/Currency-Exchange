@@ -3,11 +3,16 @@ package com.hafsaaek;
 // import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.*;
 import java.util.HashMap;
 import java.util.Scanner;
+import org.json.*;
+
+import netscape.javascript.JSObject;
 
 public class CurrencyConverter {
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -40,9 +45,9 @@ public class CurrencyConverter {
 
             // create a while loop to re=promt users to enter an integer value between 1&5
             // for fromCode if it's not between 1 & 5
-            while (from < 11 || from > 5) {
+            while (from < 1 || from > 5) {
                 System.out.println(
-                        "You have selected an in valid integer value, Please select an integer between 1 and 5 from the currencied below");
+                        "You have selected an invalid integer value, Please select an integer between 1 and 5 from the currencies below");
                 System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY");
                 from = sc.nextInt();
             }
@@ -51,20 +56,22 @@ public class CurrencyConverter {
             System.out.println("What currency are you converting to? Please select an integer from the below");
             System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY"); // \t introduces tab
             to = sc.nextInt();
-            while (to < 11 || to > 5) {
+            while (to < 1 || to > 5) {
                 System.out.println(
-                        "You have selected an in valid integer value, Please select an integer between 1 and 5 from the currencied below");
+                        "You have selected an invalid integer value, Please select an integer between 1 and 5 from the currencied below");
                 System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY");
                 to = sc.nextInt();
             }
-            toCode = currencyCodeMap.get(sc.nextInt()); // stores the reteived cureency code from scanner
+            toCode = currencyCodeMap.get(to); // stores the reteived cureency code from scanner
 
             System.out.println("Please enter the amount you wish to convert");
             amount = sc.nextFloat();
+            // System.out.println("Debug: Reached this point in the code.");
 
             // Now, how do we get the exchange rate? Use an API that will provide this in
             // real time using HTTP
             sendHTTPGETRequest(fromCode, toCode, amount); // to be called later
+            // System.out.println("Debug: Reached this point in the code.");
 
             System.out.println("Would you like to continue and make another conversion?");
             System.out.println("1: Yes \t Any other integer: No");
@@ -73,7 +80,7 @@ public class CurrencyConverter {
             }
 
         } while (programRunning);
-        System.out.println("Thank you for using the Currency COnverter program!"); // when the conversion has completed
+        System.out.println("Thank you for using the Currency Converter program!"); // when the conversion has completed
     }
 
     public static void sendHTTPGETRequest(String fromCode, String toCode, double amount) {
@@ -85,44 +92,75 @@ public class CurrencyConverter {
         String getURL = "https://api.currencyapi.com/v3/latest?apikey=" + apiKey + "&base_currency=" + fromCode
                 + "&target_currency=" + toCode + "&value=" + amount;
         // Test for selecing USD --> GBP
-        System.out.println(getURL); // https://api.currencyapi.com/v3/latest?apikey=&base_currency=USD&target_currency=GBP&amount=20.0
+        System.out.println(getURL); // https://api.currencyapi.com/v3/latest?apikey=<APIKEY>&base_currency=GBP&target_currency=USD&value=20.0
 
-        // try {
-        // URI uri = new URI(getURL); // make the get URL an actual URI - URL is not
-        // supported
-        // HttpURLConnection httpURLConnection = (HttpURLConnection)
-        // uri.toURL().openConnection(); // setup and open the HTTP connection
-        // httpURLConnection.setRequestMethod("GET"); // set the request method as GET
-        // int responsecode = httpURLConnection.getResponseCode();
+        try {
+            URI uri = new URI(getURL); // converts the string getURL into a URI object - URL is not supported
+            HttpURLConnection httpURLConnection = (HttpURLConnection) // make an instance of the httpconnection &
+                                                                      // prepares to cast the connection opened from the
+                                                                      // URI to an HttpURLConnection
+            uri.toURL().openConnection(); // opens a connection to the specified URL by converting the URI to a URL
+                                          // object and creates an HTTP connection
+            httpURLConnection.setRequestMethod("GET"); // set the request method as GET
+            int responsecode = httpURLConnection.getResponseCode(); // retrieves the response code from the server
 
-        // if (responsecode == HttpURLConnection.HTTP_OK) {
-        // BufferedReader in = new BufferedReader(new
-        // InputStreamReader(httpURLConnection.getInputStream())); // if get reuqest is
-        // successful, we want to read the response i.e. currency conversion
+            if (responsecode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                String inputLine; // declare a variable to temporarily store each line of text read from the
+                                  // server's response
+                StringBuffer response = new StringBuffer(); // a string that will parse the repsonse from the server
 
-        // String inputLine;
-        // StringBuffer response = new StringBuffer(); // a string that will parse the
-        // repsonse form the request
+                // While there is stuff to read --> keep reading and add to string Buffer
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close(); // close resource
 
-        // // While there is stuff to read --> keep reading and add to string Buffer
-        // while((inputLine = in.readLine())!= null) {
-        // response.append(inputLine);
+                System.out.println(response.toString()); // print the json reponse
+                // Store the response in a response.json file
+                writeResponseToFile(response.toString());
 
-        // } in.close(); // close resource
-        // // Testign the GET request, the repsonse is JSON - So we need to process this
-        // into a java object using a 3rd party software
+                // // Final output with all doubles to 2 decimal places
+                // System.out.println(df.format(amount) + fromCode + " = " +
+                // df.format((amount/exchangeRate)) + toCode);
 
-        // // Final output with all doubles to 2 decimal places
-        // System.out.println(df.format(amount) + fromCode + " = " +
-        // df.format((amount/exchangeRate)) + toCode);
-        // } else {
-        // System.out.println("Get request failed due to:" + responsecode);
-        // }
+                // call the parser method
+                parseJSONReponse(response.toString());
 
-        // } catch (URISyntaxException | IOException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
+            } else {
+                System.out.println("Get request failed due to:" + responsecode);
+            }
+
+        } catch (URISyntaxException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    // New method to write response to a JSON file
+    private static void writeResponseToFile(String response) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("response.json"))) {
+            writer.write(response); // Write the response to the file
+            System.out.println("Response written to response.json"); // Confirmation message
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    public static void parseJSONReponse(String repsonse) {
+        try {
+            JSONParser parse = new JSONParser(); // Using the JSON simple library, Create a JSON parser to convert the/
+                                                 // string into a JSON object
+            JSONObject response_obj = (JSONbject) parse.parse(repsonse.toString()); // Parse the response string and
+                                                                                    // cast (make) it to a JSONObject
+            // Get the required object from the above created object
+            JSONObject data_obj = (JSONObject) response_obj.get("data");
+            // Get the required data using its key
+            System.out.println(data_obj.get("GBP"));
+        } catch (Exception e) {
+            System.out.println("JSON Parser method erroring due to: " + e.getMessage());
+        }
 
     }
 
