@@ -66,3 +66,8 @@ The following flowchart illustrates the process of retrieving and using the API 
 `export api.currency.token=YOUR_API_KEY_HERE`
 2. Replace YOUR_API_KEY_HERE with your actual API key.
 3. Run the Application. The application will automatically use the API key to perform currency conversions.
+'java -Dapi.currency.token=$API_CURRENCY_TOKEN -cp . com.hafsaaek.CurrencyConverter'
+
+## Testing
+#### Ideas:
+1. Chekcing last udpated in metadata
