@@ -68,6 +68,15 @@ The following flowchart illustrates the process of retrieving and using the API 
 3. Run the Application. The application will automatically use the API key to perform currency conversions.
 'java -Dapi.currency.token=$API_CURRENCY_TOKEN -cp . com.hafsaaek.CurrencyConverter'
 
+## How to store the api token as an environment variable:
+1. Open your terminal and edit your shell configuration file:
+   - For **Bash**: `~/.bash_profile` or `~/.bashrc`
+   - For **Zsh**: `~/.zshrc`
+2. Add the following line to set the API token as an environment variable:
+   ```bash
+   export API_CURRENCY_TOKEN="YOUR_API_KEY_HERE"
+
+
 ## Testing
 #### Ideas:
 1. Chekcing last udpated in metadata
@@ -89,3 +98,6 @@ The following flowchart illustrates the process of retrieving and using the API 
         # Add JAVA_HOME to PATH
         export PATH=$JAVA_HOME/bin:$PATH
 4. Create maven wrapper in your repo - ` mvn -N io.takari:maven:wrapper` this will 
+5. Compile your project: `mvn clean compile`
+5. Run your proejct with maven:  `mvn exec:java -Dexec.mainClass="com.yourpackage.YourMainClass"` 
+mvn exec:java -Dexec.mainClass="com.hafsaaek.CurrencyConverter"
