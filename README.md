@@ -71,3 +71,21 @@ The following flowchart illustrates the process of retrieving and using the API 
 ## Testing
 #### Ideas:
 1. Chekcing last udpated in metadata
+
+
+## MAVEN 
+1. Build project using VS Code - use CMP+P to build a
+2. install maven using brew - `brew install maven`
+3. Check if it's installed using `mvn -version` - if it's not, you might need to define the JAVA_HOME env variable in your shell profile:
+    1. First, you need to find where Java is installed on your system. You can do this by running: /usr/libexec/java_home
+    2. Set your java_home env variable in your shell profile e.g., in bash, run `nano ~/.bash_profile`
+    3. Copy the below to your JAVA_HOME VARIABLE
+        # Custom alias
+        alias hw='echo "Hello from bash_profile"'
+
+        # Set JAVA_HOME explicitly (replace with your actual path)
+        export JAVA_HOME=/usr/local/Cellar/openjdk/22.0.2/libexec/openjdk.jdk/Contents/Home
+
+        # Add JAVA_HOME to PATH
+        export PATH=$JAVA_HOME/bin:$PATH
+4. Create maven wrapper in your repo - ` mvn -N io.takari:maven:wrapper` this will 

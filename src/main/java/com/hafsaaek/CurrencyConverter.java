@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import org.json.*;
 
-import netscape.javascript.JSObject;
 
 public class CurrencyConverter {
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -150,10 +149,9 @@ public class CurrencyConverter {
 
     public static void parseJSONReponse(String repsonse) {
         try {
-            JSONParser parse = new JSONParser(); // Using the JSON simple library, Create a JSON parser to convert the/
+            // JSONParser parse = new JSONParser(); // Using the JSON simple library, Create a JSON parser to convert the/
                                                  // string into a JSON object
-            JSONObject response_obj = (JSONObject) parse.parse(repsonse.toString()); // Parse the response string and// cast (make) it to aJSONObject
-            // Get the required object from the above created object
+            JSONObject response_obj = new JSONObject(repsonse.toString()); // Directly create a JSONObject
             JSONObject data_obj = (JSONObject) response_obj.get("data");
             // Get the required data using its key
             System.out.println(data_obj.get("GBP"));
