@@ -149,10 +149,9 @@ public class CurrencyConverter {
 
     public static void parseJSONReponse(String repsonse) {
         try {
-            // JSONParser parse = new JSONParser(); // Using the JSON simple library, Create a JSON parser to convert the/
-                                                 // string into a JSON object
             JSONObject response_obj = new JSONObject(repsonse.toString()); // Directly create a JSONObject
-            JSONObject data_obj = (JSONObject) response_obj.get("data");
+            JSONObject data_obj = (JSONObject) response_obj.get("data"); 
+
             // Get the required data using its key
             System.out.println(data_obj.get("GBP"));
         } catch (Exception e) {
