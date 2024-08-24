@@ -29,4 +29,4 @@ hs_err_pid*
 .vscode/
 
 # JSON Files
-.json
+.json.DS_Store
