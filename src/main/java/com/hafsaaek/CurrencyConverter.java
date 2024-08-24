@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import org.json.*;
 
-
 public class CurrencyConverter {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
@@ -26,7 +25,7 @@ public class CurrencyConverter {
             // Add currency codes to the HashMap with integers 1-10 as keys
             currencyCodeMap.put(1, "GBP");
             currencyCodeMap.put(2, "USD");
-            currencyCodeMap.put(3, "KSH");
+            currencyCodeMap.put(3, "KES");
             currencyCodeMap.put(4, "EUR");
             currencyCodeMap.put(5, "JPY");
 
@@ -38,7 +37,7 @@ public class CurrencyConverter {
             System.out.println("Welcome to the currency converter ");
 
             System.out.println("What currency are you converting from? Please select an integer from the below");
-            System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY"); // \t introduces tab
+            System.out.println("1: GBP \t 2: USD \t 3: KES \t 4: EUR \t 5: JPY"); // \t introduces tab
             from = sc.nextInt(); // reads the next integer input from the user and fromcode is assigned to the
                                  // HashMap value associated with the integer input
 
@@ -47,18 +46,19 @@ public class CurrencyConverter {
             while (from < 1 || from > 5) {
                 System.out.println(
                         "You have selected an invalid integer value, Please select an integer between 1 and 5 from the currencies below");
-                System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY");
+                System.out.println("1: GBP \t 2: USD \t 3: KES \t 4: EUR \t 5: JPY");
                 from = sc.nextInt();
             }
-            fromCode = currencyCodeMap.get(from); // stores the reteived cureency code of the variable from
+            fromCode = currencyCodeMap.get(from); // stores the reteived cureency code of the variable from, if from =1,
+                                                  // fromCode=value where key=1
 
             System.out.println("What currency are you converting to? Please select an integer from the below");
-            System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY"); // \t introduces tab
+            System.out.println("1: GBP \t 2: USD \t 3: KES \t 4: EUR \t 5: JPY"); // \t introduces tab
             to = sc.nextInt();
             while (to < 1 || to > 5) {
                 System.out.println(
                         "You have selected an invalid integer value, Please select an integer between 1 and 5 from the currencied below");
-                System.out.println("1: GBP \t 2: USD \t 3: KSH \t 4: EUR \t 5: JPY");
+                System.out.println("1: GBP \t 2: USD \t 3: KES \t 4: EUR \t 5: JPY");
                 to = sc.nextInt();
             }
             toCode = currencyCodeMap.get(to); // stores the reteived cureency code from scanner
@@ -87,19 +87,17 @@ public class CurrencyConverter {
         // Retrieve the API key from ApiTokenManager
         String apiKey = ApiTokenManager.getApiKey();
 
-        // https://api.currencyapi.com/v3/convert?apikey=YOUR_API_KEY&base_currency=BASE_CURRENCY&target_currency=TARGET_CURRENCY&value=AMOUNT
         String getURL = "https://api.currencyapi.com/v3/latest?apikey=" + apiKey + "&base_currency=" + fromCode
-                + "&target_currency=" + toCode + "&value=" + amount;
+                + "&currencies=" + toCode;
+        // url =
+        // "https://api.currencyapi.com/v3/latest?apikey=YOUR-API-KEY&base_currency=EUR&currencies=USD,AED,CHF"
         // Test for selecing USD --> GBP
         System.out.println(getURL); // https://api.currencyapi.com/v3/latest?apikey=<APIKEY>&base_currency=GBP&target_currency=USD&value=20.0
 
         try {
             URI uri = new URI(getURL); // converts the string getURL into a URI object - URL is not supported
-            HttpURLConnection httpURLConnection = (HttpURLConnection) // make an instance of the httpconnection &
-                                                                      // prepares to cast the connection opened from the
-                                                                      // URI to an HttpURLConnection
-            uri.toURL().openConnection(); // opens a connection to the specified URL by converting the URI to a URL
-                                          // object and creates an HTTP connection
+            HttpURLConnection httpURLConnection = (HttpURLConnection) // make an instance of the httpconnection & prepares to cast the connection opened from the URI to an HttpURLConnection
+            uri.toURL().openConnection(); // opens a connection to the specified URL by converting the URI to a URL object and creates an HTTP connection
             httpURLConnection.setRequestMethod("GET"); // set the request method as GET
             int responsecode = httpURLConnection.getResponseCode(); // retrieves the response code from the server
 
@@ -119,12 +117,13 @@ public class CurrencyConverter {
                 // Store the response in a response.json file
                 writeResponseToFile(response.toString());
 
+                // call the parser method
+                double conversionRate = getExchangeRate(response.toString(), toCode);
+
                 // // Final output with all doubles to 2 decimal places
                 // System.out.println(df.format(amount) + fromCode + " = " +
-                // df.format((amount/exchangeRate)) + toCode);
-
-                // call the parser method
-                parseJSONReponse(response.toString());
+                // df.format(convert(responsecode, amount, fromCode, toCode));
+                convert(amount, conversionRate, fromCode, toCode);
 
             } else {
                 System.out.println("Get request failed due to:" + responsecode);
@@ -139,25 +138,37 @@ public class CurrencyConverter {
 
     // New method to write response to a JSON file
     private static void writeResponseToFile(String response) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("response.json"))) {
+        // Define the path to the resources directory
+        String filePath = "src/main/resources/response.json";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(response); // Write the response to the file
-            System.out.println("Response written to response.json"); // Confirmation message
+            System.out.println("Response written to: " + filePath); // Confirmation message
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
 
-    public static void parseJSONReponse(String repsonse) {
+    public static double getExchangeRate(String repsonse, String toCode) {
         try {
-            // JSONParser parse = new JSONParser(); // Using the JSON simple library, Create a JSON parser to convert the/
-                                                 // string into a JSON object
             JSONObject response_obj = new JSONObject(repsonse.toString()); // Directly create a JSONObject
-            JSONObject data_obj = (JSONObject) response_obj.get("data");
+            
             // Get the required data using its key
-            System.out.println(data_obj.get("GBP"));
+            double conversionRate = response_obj.getJSONObject("data").getJSONObject(toCode).getDouble("value");
+            System.out.println("The latest conversion rate is: " + conversionRate);
+            return conversionRate;
         } catch (Exception e) {
             System.out.println("JSON Parser method erroring due to: " + e.getMessage());
+            return 0;
         }
+
+    }
+
+    public static void convert(double amount, double conversionRate, String fromCode, String toCode){
+
+        double convertedAmount = amount * conversionRate;
+        System.out.println(convertedAmount);
+        System.out.println(amount + " in " + fromCode + " to " + toCode + " = " + convertedAmount);
 
     }
 
