@@ -8,16 +8,46 @@ public class JSONParserTest {
 
     @Test
     public void retrieveExchangeRate(){
-        // create a simple json parser object to allow us to call the method on
-
         String sampleResponse = "{"
         + "\"data\": {"
-        + "   \"USD\": {\"value\": 1.32}"
+        + "   \"USD\": {\"value\": 1.3191043799}}"
         + "  }"
         + "}";
         double delta = 0.01;
         assertEquals(1.32,JSONParser.getExchangeRate(sampleResponse, "USD"), delta);
 
+    }
+
+    @Test
+    public void retrieveExchangeRate_EmptyJSON(){
+        String emptyRepsonse = "{"
+        + "\"data\": {"
+        + "   \"GBP\": {\"value\": 1.3191043799}}"
+        + "  }"
+        + "}";
+        double delta = 0.01;
+
+        assertEquals(0.00, JSONParser.getExchangeRate(emptyRepsonse, "GBP"), delta);
+    }
+
+    @Test
+    public void retrieveExchangeRate_ZeroValue(){
+        String emptyRepsonse = "{"
+        + "\"data\": {"
+        + "   \"GBP\": {\"value\": 0.0}}"
+        + "  }"
+        + "}";
+        double delta = 0.01;
+
+        assertEquals(0.00, JSONParser.getExchangeRate(emptyRepsonse, "GBP"), delta);
+    }
+
+    @Test
+    public void retrieveExchangeRate_NegativeValues(){
+        String negativeResponse = "{ \"data\": { \"USD\": {\"value\": -1.32} } }";
+        double delta = 0.01;
+
+        assertEquals(-1.32, JSONParser.getExchangeRate(negativeResponse, "USD"), delta);
     }
     
 }
