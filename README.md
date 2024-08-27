@@ -102,4 +102,4 @@ w
 4. Create maven wrapper in your repo - ` mvn -N io.takari:maven:wrapper` this will 
 5. Compile your project: `mvn clean compile`
 5. Run your proejct with maven:  `mvn exec:java -Dexec.mainClass="com.yourpackage.YourMainClass"` 
-mvn exec:java -Dexec.mainClass="com.hafsaaek.CurrencyConverter"
+e.g., if your main class was main.java, then use `mvn exec:java -Dexec.mainClass="com.hafsaaek.main"``
