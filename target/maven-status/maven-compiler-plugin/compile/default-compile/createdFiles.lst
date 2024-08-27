@@ -1,2 +1,6 @@
-com/hafsaaek/ApiTokenManager.class
-com/hafsaaek/CurrencyConverter.class
+com/hafsaaek/api/ApiTokenManager.class
+com/hafsaaek/api/APIService.class
+com/hafsaaek/util/JsonParser.class
+com/hafsaaek/main.class
+com/hafsaaek/util/WriteResponseToFile.class
+com/hafsaaek/service/ConverterService.class

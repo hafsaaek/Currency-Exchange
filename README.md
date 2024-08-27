@@ -97,6 +97,8 @@ w
 
         # Add JAVA_HOME to PATH
         export PATH=$JAVA_HOME/bin:$PATH
+        
+    4. To save changes: `source ~/.bash_profile`
 4. Create maven wrapper in your repo - ` mvn -N io.takari:maven:wrapper` this will 
 5. Compile your project: `mvn clean compile`
 5. Run your proejct with maven:  `mvn exec:java -Dexec.mainClass="com.yourpackage.YourMainClass"` 

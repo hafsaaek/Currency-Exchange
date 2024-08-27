@@ -1,4 +1,4 @@
-package com.hafsaaek;
+package com.hafsaaek.api;
 
 public class ApiTokenManager {
 

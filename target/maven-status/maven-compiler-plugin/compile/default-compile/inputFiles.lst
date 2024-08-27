@@ -1,2 +1,7 @@
-/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/ApiTokenManager.java
+/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/util/JsonParser.java
+/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/util/WriteResponseToFile.java
+/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/api/APIService.java
 /Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/CurrencyConverter.java
+/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/service/ConverterService.java
+/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/main.java
+/Users/hafsaelmi/Desktop/Currency Converter Project/currency-converter/src/main/java/com/hafsaaek/api/ApiTokenManager.java
