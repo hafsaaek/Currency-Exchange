@@ -2,5 +2,5 @@ com/hafsaaek/api/ApiTokenManager.class
 com/hafsaaek/api/APIService.class
 com/hafsaaek/util/JSONParser.class
 com/hafsaaek/main.class
-com/hafsaaek/util/WriteResponseToFile.class
+com/hafsaaek/util/JSONResponseSaver.class
 com/hafsaaek/service/ConverterService.class

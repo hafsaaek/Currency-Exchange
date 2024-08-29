@@ -16,7 +16,7 @@ public class ConverterService {
         String response = apiService.sendHTTPGETRequest(fromCode, toCode);
 
         if (response != null){
-            WriteResponseToFile.writeResponseToFile(response); // save the API response to a JSON file for later inspection
+            JSONResponseSaver.writeResponseToFile(response); // save the API response to a JSON file for later inspection
 
             double conversionRate = JSONParser.getExchangeRate(response, toCode); // extract the exchange rate from the JSON response
 

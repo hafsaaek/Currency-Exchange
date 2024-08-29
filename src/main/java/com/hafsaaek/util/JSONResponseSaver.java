@@ -4,12 +4,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WriteResponseToFile {
+public class JSONResponseSaver {
+
+    private static String filePath = "src/main/resources/response.json";
 
     // New method to write response to a JSON file
     public static void writeResponseToFile(String response) {
         // Define the path to the resources directory
-        String filePath = "src/main/resources/response.json";
+        // filePath = "src/main/resources/response.json";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             writer.write(response); // Write the response to the file
@@ -18,5 +20,10 @@ public class WriteResponseToFile {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
-    
+
+    // setter method to allow other instances and tests to alter the filepath
+    public static void setFilePath(String newFilePath){
+        filePath = newFilePath;
+    }
+
 }
