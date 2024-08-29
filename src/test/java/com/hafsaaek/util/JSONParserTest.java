@@ -21,11 +21,10 @@ public class JSONParserTest {
     @Test
     public void retrieveExchangeRate_EmptyJSON() {
         String emptyRepsonse = "{"
-                + "\"data\": {"
-                + "   \"GBP\": {\"value\": 1.3191043799}}"
-                + "  }"
-                + "}";
-        double delta = 0.01;
+        + "\"data\": {"
+        + "   \"GBP\": {\"value\": null}}" 
+        + "}";
+        double delta = 0.01; // GBP has no value
 
         assertEquals(0.00, JSONParser.getExchangeRate(emptyRepsonse, "GBP"), delta);
     }

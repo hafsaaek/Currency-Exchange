@@ -1,0 +1,4 @@
+com/hafsaaek/AppTest.class
+com/hafsaaek/util/JSONParserTest.class
+com/hafsaaek/util/JSONResponseSaverTest.class
+com/hafsaaek/api/APITokenManagerTest.class
