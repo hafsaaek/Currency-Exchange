@@ -47,7 +47,7 @@ public class APITokenManagerTest {
                 });
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testNeither(){
 
         System.clearProperty("api.currency.token"); // clear the system variable if set 

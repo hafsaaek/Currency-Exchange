@@ -28,5 +28,7 @@ hs_err_pid*
 # VS Code
 .vscode/
 
-# JSON Files
-<<<<<<< HEAD
+/.idea/
+/target/
+/target/maven-status/
+/target/surefire-reports/

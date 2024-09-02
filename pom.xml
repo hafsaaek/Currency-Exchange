@@ -12,8 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>22</maven.compiler.source> <!-- Update source to 22 -->
-    <maven.compiler.target>22</maven.compiler.target> <!-- Update target to 22 -->
+    <maven.compiler.source>17</maven.compiler.source> <!-- Update source to 22 -->
+    <maven.compiler.target>17</maven.compiler.target> <!-- Update target to 22 -->
     <argLine>--add-opens java.base/java.util=ALL-UNNAMED</argLine>
   </properties>
 
@@ -88,7 +88,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.2</version>
           <configuration>
-              <argLine>--add-opens java.base/java.util=ALL-UNNAMED</argLine>
+              <argLine>--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
           </configuration>
         </plugin>
       </plugins>
