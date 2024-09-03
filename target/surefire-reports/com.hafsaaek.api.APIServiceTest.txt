@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: com.hafsaaek.api.APIServiceTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.96 s <<< FAILURE! - in com.hafsaaek.api.APIServiceTest
+getInvalidResponse(com.hafsaaek.api.APIServiceTest)  Time elapsed: 1.955 s  <<< ERROR!
+org.mockito.exceptions.base.MockitoException: 
+
+Mockito cannot mock this class: class com.hafsaaek.api.ApiTokenManager.
+
+If you're not sure why you're getting this error, please open an issue on GitHub.
+
+
+Java               : 22
+JVM vendor name    : Homebrew
+JVM vendor version : 22.0.2
+JVM name           : OpenJDK 64-Bit Server VM
+JVM version        : 22.0.2
+JVM info           : mixed mode, sharing
+OS name            : Mac OS X
+OS version         : 12.7.1
+
+
+You are seeing this disclaimer because Mockito is configured to create inlined mocks.
+You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
+
+Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+Caused by: java.lang.IllegalStateException: 
+
+Byte Buddy could not instrument all classes within the mock's type hierarchy
+
+This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
+ - Compiled by older versions of scalac
+ - Classes that are part of the Android distribution
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+Caused by: java.lang.IllegalArgumentException: Java 22 (66) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+

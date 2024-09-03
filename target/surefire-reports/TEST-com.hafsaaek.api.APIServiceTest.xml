@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.hafsaaek.util.JSONParserTest" time="0.013" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.hafsaaek.api.APIServiceTest" time="1.96" tests="1" errors="1" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -58,9 +58,46 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="retrieveExchangeRate" classname="com.hafsaaek.util.JSONParserTest" time="0.005"/>
-  <testcase name="retrieveExchangeRate_EmptyJSON" classname="com.hafsaaek.util.JSONParserTest" time="0.002"/>
-  <testcase name="retrieveExchangeRate_NegativeValues" classname="com.hafsaaek.util.JSONParserTest" time="0"/>
-  <testcase name="retrieveExchangeRate_ZeroValue" classname="com.hafsaaek.util.JSONParserTest" time="0.001"/>
-  <testcase name="retrieveExchangeRate_MalformedJSON" classname="com.hafsaaek.util.JSONParserTest" time="0.001"/>
+  <testcase name="getInvalidResponse" classname="com.hafsaaek.api.APIServiceTest" time="1.955">
+    <error message="&#10;Mockito cannot mock this class: class com.hafsaaek.api.ApiTokenManager.&#10;&#10;If you&apos;re not sure why you&apos;re getting this error, please open an issue on GitHub.&#10;&#10;&#10;Java               : 22&#10;JVM vendor name    : Homebrew&#10;JVM vendor version : 22.0.2&#10;JVM name           : OpenJDK 64-Bit Server VM&#10;JVM version        : 22.0.2&#10;JVM info           : mixed mode, sharing&#10;OS name            : Mac OS X&#10;OS version         : 12.7.1&#10;&#10;&#10;You are seeing this disclaimer because Mockito is configured to create inlined mocks.&#10;You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.&#10;&#10;Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]" type="org.mockito.exceptions.base.MockitoException">org.mockito.exceptions.base.MockitoException: 
+
+Mockito cannot mock this class: class com.hafsaaek.api.ApiTokenManager.
+
+If you're not sure why you're getting this error, please open an issue on GitHub.
+
+
+Java               : 22
+JVM vendor name    : Homebrew
+JVM vendor version : 22.0.2
+JVM name           : OpenJDK 64-Bit Server VM
+JVM version        : 22.0.2
+JVM info           : mixed mode, sharing
+OS name            : Mac OS X
+OS version         : 12.7.1
+
+
+You are seeing this disclaimer because Mockito is configured to create inlined mocks.
+You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
+
+Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+Caused by: java.lang.IllegalStateException: 
+
+Byte Buddy could not instrument all classes within the mock's type hierarchy
+
+This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
+ - Compiled by older versions of scalac
+ - Classes that are part of the Android distribution
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+Caused by: java.lang.IllegalArgumentException: Java 22 (66) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+</error>
+    <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/hafsaelmi/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.6/byte-buddy-agent-1.14.6.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+  </testcase>
 </testsuite>
