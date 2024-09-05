@@ -12,8 +12,6 @@ public class JsonParser {
             // Get the required data using its key
             double conversionRate = response_obj.getJSONObject("data").getJSONObject(toCode).getDouble("value");
 
-            conversionRate = Math.round(conversionRate * 100.0) / 100.0;
-
             System.out.println("The latest conversion rate is: " + conversionRate);
             return conversionRate;
         } catch (Exception e) {

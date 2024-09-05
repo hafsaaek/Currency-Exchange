@@ -24,11 +24,12 @@ public class APIService {
 
         try {
             URI uri = new URI(getURL); // converts the string getURL into a URI object - URL is not supported
-            HttpURLConnection httpURLConnection = (HttpURLConnection) // make an instance of the httpconnection & prepares to cast the connection opened from the URI to an HttpURLConnection
+            HttpURLConnection httpURLConnection = (HttpURLConnection) // open a connection to the API server 
             uri.toURL().openConnection(); // opens a connection to the specified URL by converting the URI to a URL object and creates an HTTP connection
             httpURLConnection.setRequestMethod("GET"); // set the request method as GET
-            int responsecode = httpURLConnection.getResponseCode(); // retrieves the response code from the server
+            int responsecode = httpURLConnection.getResponseCode(); // save response code
 
+            // Check the response and read it if it HTTP OK i.e. 200 repsonse code
             if (responsecode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                 String inputLine; // declare a variable to temporarily store each line of text read from the server's response
