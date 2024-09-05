@@ -49,6 +49,7 @@ public class APIServiceTest {
         assertEquals(HttpURLConnection.HTTP_NOT_FOUND, responseCode);
     }
 
+    @Test
     public void getInternalServerError() throws Exception{
 
         URI uri = new URI(expectedURL);

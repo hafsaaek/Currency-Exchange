@@ -1,40 +1,34 @@
 -------------------------------------------------------------------------------
 Test set: com.hafsaaek.api.APIServiceTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.96 s <<< FAILURE! - in com.hafsaaek.api.APIServiceTest
-getInvalidResponse(com.hafsaaek.api.APIServiceTest)  Time elapsed: 1.955 s  <<< ERROR!
-org.mockito.exceptions.base.MockitoException: 
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 2.265 s <<< FAILURE! - in com.hafsaaek.api.APIServiceTest
+com.hafsaaek.api.APIServiceTest.getInvalidResponse  Time elapsed: 2.243 s  <<< ERROR!
+org.mockito.exceptions.misusing.MissingMethodInvocationException: 
 
-Mockito cannot mock this class: class com.hafsaaek.api.ApiTokenManager.
+when() requires an argument which has to be 'a method call on a mock'.
+For example:
+    when(mock.getArticles()).thenReturn(articles);
 
-If you're not sure why you're getting this error, please open an issue on GitHub.
+Also, this error might show up because:
+1. you stub either of: final/private/equals()/hashCode() methods.
+   Those methods *cannot* be stubbed/verified.
+   Mocking methods declared on non-public parent classes is not supported.
+2. inside when() you don't call method on mock but on some other object.
 
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:27)
 
-Java               : 22
-JVM vendor name    : Homebrew
-JVM vendor version : 22.0.2
-JVM name           : OpenJDK 64-Bit Server VM
-JVM version        : 22.0.2
-JVM info           : mixed mode, sharing
-OS name            : Mac OS X
-OS version         : 12.7.1
+com.hafsaaek.api.APIServiceTest.getInternalServerError  Time elapsed: 0.004 s  <<< ERROR!
+org.mockito.exceptions.misusing.MissingMethodInvocationException: 
 
+when() requires an argument which has to be 'a method call on a mock'.
+For example:
+    when(mock.getArticles()).thenReturn(articles);
 
-You are seeing this disclaimer because Mockito is configured to create inlined mocks.
-You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
+Also, this error might show up because:
+1. you stub either of: final/private/equals()/hashCode() methods.
+   Those methods *cannot* be stubbed/verified.
+   Mocking methods declared on non-public parent classes is not supported.
+2. inside when() you don't call method on mock but on some other object.
 
-Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]
-	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
-Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class com.hafsaaek.api.ApiTokenManager, class java.lang.Object]
-	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
-Caused by: java.lang.IllegalStateException: 
-
-Byte Buddy could not instrument all classes within the mock's type hierarchy
-
-This problem should never occur for javac-compiled classes. This problem has been observed for classes that are:
- - Compiled by older versions of scalac
- - Classes that are part of the Android distribution
-	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
-Caused by: java.lang.IllegalArgumentException: Java 22 (66) is not supported by the current version of Byte Buddy which officially supports Java 21 (65) - update Byte Buddy or set net.bytebuddy.experimental as a VM property
-	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:25)
+	at com.hafsaaek.api.APIServiceTest.setUpMock(APIServiceTest.java:27)
 
