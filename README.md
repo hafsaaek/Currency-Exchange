@@ -8,7 +8,7 @@ This project facilitates currency conversion using a third-party API. To interac
 
 The following flowchart illustrates the process of retrieving and using the API key:
 
-```plaintext
+```
 +-------------------------------+
 | Start                         |
 +-------------------------------+
@@ -54,7 +54,10 @@ The following flowchart illustrates the process of retrieving and using the API 
 | End                           |
 +-------------------------------+
 
-#### Logic:
+```
+
+#### Logic
+
     1. Initialization: ApiTokenManager class initializes static fields, including INITIALIZED_API_KEY which is set by calling loadApiKey().
     2. loadApiKey() Method: Fetches and validates the API key from system properties. Throws an exception if the key is missing or empty.
     3. API Key Assignment: INITIALIZED_API_KEY is assigned the valid API key.
@@ -66,16 +69,17 @@ The following flowchart illustrates the process of retrieving and using the API 
 `export api.currency.token=YOUR_API_KEY_HERE`
 2. Replace YOUR_API_KEY_HERE with your actual API key.
 3. Run the Application. The application will automatically use the API key to perform currency conversions.
-'java -Dapi.currency.token=$API_CURRENCY_TOKEN -cp . com.hafsaaek.CurrencyConverter'
+`java -Dapi.currency.token=$API_CURRENCY_TOKEN -cp . com.hafsaaek.CurrencyConverter`
 
 ## How to store the api token as an environment variable:
 1. Open your terminal and edit your shell configuration file:
    - For **Bash**: `~/.bash_profile` or `~/.bashrc`
    - For **Zsh**: `~/.zshrc`
 2. Add the following line to set the API token as an environment variable:
-   ```bash
-   export API_CURRENCY_TOKEN="YOUR_API_KEY_HERE"
 
+```bash
+   export API_CURRENCY_TOKEN="YOUR_API_KEY_HERE"
+```
 
 ## Testing
 #### Ideas:
@@ -89,17 +93,27 @@ The following flowchart illustrates the process of retrieving and using the API 
     1. First, you need to find where Java is installed on your system. You can do this by running: /usr/libexec/java_home
     2. Set your java_home env variable in your shell profile e.g., in bash, run `nano ~/.bash_profile`
     3. Copy the below to your JAVA_HOME VARIABLE
+```bash    
         # Custom alias
         alias hw='echo "Hello from bash_profile"'
-w
         # Set JAVA_HOME explicitly (replace with your actual path)
         export JAVA_HOME=/usr/local/Cellar/openjdk/22.0.2/libexec/openjdk.jdk/Contents/Home
 
         # Add JAVA_HOME to PATH
         export PATH=$JAVA_HOME/bin:$PATH
-        
+```        
     4. To save changes: `source ~/.bash_profile`
 4. Create maven wrapper in your repo - ` mvn -N io.takari:maven:wrapper` this will 
 5. Compile your project: `mvn clean compile`
 5. Run your proejct with maven:  `mvn exec:java -Dexec.mainClass="com.yourpackage.YourMainClass"` 
 e.g., if your main class was main.java, then use `mvn exec:java -Dexec.mainClass="com.hafsaaek.main"``
+6. Run tests from IDE:
+
+Add below lines into your `.vscode/launch.json`:
+
+```json
+   "java.test.config": {
+        "name": "testConfig",
+        "vmArgs": ["--add-opens", "java.base/java.util=ALL-UNNAMED"]
+   } 
+```   

@@ -3,7 +3,7 @@ package com.hafsaaek.util;
 
 import org.json.JSONObject;
 
-public class JSONParser {
+public class JsonParser {
 
     public static double getExchangeRate(String repsonse, String toCode) {
         try {

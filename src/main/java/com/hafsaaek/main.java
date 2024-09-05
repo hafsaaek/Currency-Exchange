@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.hafsaaek.service.ConverterService;
 
-public class main {
+public class Main {
 
     public static void main(String[] args) {
         Boolean programRunning = true;

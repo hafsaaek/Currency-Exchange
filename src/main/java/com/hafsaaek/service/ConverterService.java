@@ -18,7 +18,7 @@ public class ConverterService {
         if (response != null){
             JSONResponseSaver.writeResponseToFile(response); // save the API response to a JSON file for later inspection
 
-            double conversionRate = JSONParser.getExchangeRate(response, toCode); // extract the exchange rate from the JSON response
+            double conversionRate = JsonParser.getExchangeRate(response, toCode); // extract the exchange rate from the JSON response
 
             double convertedAmount = amount * conversionRate;
             System.out.printf("%.2f %s = %.2f %s%n", amount, fromCode, convertedAmount, toCode);
