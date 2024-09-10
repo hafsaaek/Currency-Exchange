@@ -48,12 +48,14 @@ public class APITokenManagerTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testNeither(){
+    public void testNeither() throws Exception{
 
         System.clearProperty("api.currency.token"); // clear the system variable if set 
-        System.clearProperty("API_CURRENCY_TOKEN"); // Clear the environment variable if set
-
-       ApiTokenManager.getApiKey(); // call to show that it throws an exception
+        // System.clearProperty("API_CURRENCY_TOKEN"); // Clear the environment variable if set - this was not cleanring the env variable and thus no exeptio was being throw as this is cleaered and set on a sytsem level so you have to mock it
+        SystemLambda.withEnvironmentVariable("API_CURRENCY_TOKEN", null) // mock environment variable to be null (unset)
+        .execute(() -> {
+            ApiTokenManager.getApiKey(); // callign this should now throw the expected IllegalArgumentException
+        });
 
     }
 
